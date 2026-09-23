@@ -123,8 +123,9 @@
       const clampedT = Math.max(0, Math.min(t, tSplashUp));
       const hasSplashed = t >= tSplashUp;
       const curY = hasSplashed ? yWater : y0 + v0 * clampedT + 0.5 * a * clampedT * clampedT;
-      const curV = hasSplashed ? 0 : v0 + a * clampedT;
-      const curA = hasSplashed ? 0 : a;
+      // Pedagogical rule: Never zero out final velocity; retain velocity at end of trajectory
+      const curV = v0 + a * clampedT;
+      const curA = a;
       return { t: clampedT, y: curY, v: curV, a: curA, hasSplashed };
     }
 
@@ -132,8 +133,8 @@
       const clampedT = Math.max(0, Math.min(t, tSplashDown));
       const hasSplashed = t >= tSplashDown;
       const curY = hasSplashed ? yWater : y0 + v0Down * clampedT + 0.5 * a * clampedT * clampedT;
-      const curV = hasSplashed ? 0 : v0Down + a * clampedT;
-      const curA = hasSplashed ? 0 : a;
+      const curV = v0Down + a * clampedT;
+      const curA = a;
       return { t: clampedT, y: curY, v: curV, a: curA, hasSplashed };
     }
 
@@ -286,8 +287,8 @@
       const clampedT = Math.max(0, Math.min(t, tSplash1));
       const hasSplashed = t >= tSplash1;
       const curY = hasSplashed ? yWater : y0 + v01 * clampedT + 0.5 * a * clampedT * clampedT;
-      const curV = hasSplashed ? 0 : v01 + a * clampedT;
-      const curA = hasSplashed ? 0 : a;
+      const curV = v01 + a * clampedT;
+      const curA = a;
       return { t: clampedT, y: curY, v: curV, a: curA, hasSplashed, released: true };
     }
 
@@ -299,8 +300,8 @@
       const clampedDeltaT = Math.max(0, Math.min(tElapsed, deltaT2));
       const hasSplashed = t >= tSplash1;
       const curY = hasSplashed ? yWater : y0 + v02 * clampedDeltaT + 0.5 * a * clampedDeltaT * clampedDeltaT;
-      const curV = hasSplashed ? 0 : v02 + a * clampedDeltaT;
-      const curA = hasSplashed ? 0 : a;
+      const curV = v02 + a * clampedDeltaT;
+      const curA = a;
       return { t, y: curY, v: curV, a: curA, hasSplashed, released: true };
     }
 
@@ -466,8 +467,10 @@
           landed: false
         };
       }
-      // Landed
-      return { t, y: 0, v: 0, a: 0, phase: 'landed', engineOn: false, landed: true };
+      // Landed - retain final impact velocity & acceleration at end of trajectory
+      const tauImpact = tImpact - tBurn;
+      const vImpact = vBurn + aFreeFall * tauImpact;
+      return { t: tImpact, y: 0, v: vImpact, a: aFreeFall, phase: 'landed', engineOn: false, landed: true };
     }
 
     return {
@@ -597,8 +600,8 @@
       const clampedT = isFinite(tImpact) ? Math.min(t, tImpact) : t;
       const hasLanded = isFinite(tImpact) && t >= tImpact;
       const curY = hasLanded ? groundY : y0 + v0 * clampedT + 0.5 * a * clampedT * clampedT;
-      const curV = hasLanded ? 0 : v0 + a * clampedT;
-      const curA = hasLanded ? 0 : a;
+      const curV = v0 + a * clampedT;
+      const curA = a;
       return { t: clampedT, y: curY, v: curV, a: curA, hasLanded };
     }
 
