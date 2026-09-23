@@ -115,6 +115,17 @@ test('Problem 43: Mountain Climber & Simultaneous Splash (Cliff = 50 m, v01 = +2
     assert.equal(s2Before.y, 50.0);
     assert.equal(s2Before.v, 0);
   });
+
+  await t.test('Clean exam values with g = 10.0 m/s^2', () => {
+    const p43_10 = Physics.solveProblem43({ cliffHeight: 50.0, v01: 2.0, tDelay: 1.0, g: 10.0 });
+    const expectedT1 = (2 + Math.sqrt(1004)) / 10;
+    assert.ok(Math.abs(p43_10.stone1.tSplash - expectedT1) < 1e-5);
+    const deltaT2 = expectedT1 - 1.0;
+    assert.ok(Math.abs(p43_10.stone2.flightDuration - deltaT2) < 1e-5);
+    const expectedV02 = (-50 + 5 * deltaT2 * deltaT2) / deltaT2;
+    assert.ok(Math.abs(p43_10.stone2.v0 - expectedV02) < 1e-5);
+    assert.ok(Math.abs(p43_10.stone2.v02 - expectedV02) < 1e-5);
+  });
 });
 
 test('Problem 44: Model Rocket Two-Interval Kinematics (v0 = 50 m/s, a = +2 m/s^2 to 150 m, then g = -9.8 m/s^2)', async (t) => {
@@ -170,6 +181,14 @@ test('Problem 44: Model Rocket Two-Interval Kinematics (v0 = 50 m/s, a = +2 m/s^
     assert.equal(stateAfter.engineOn, false);
     assert.equal(stateAfter.a, -9.8);
     assert.ok(Math.abs(stateAfter.y - 150) < 0.1);
+  });
+
+  await t.test('Clean exam values with g = 10.0 m/s^2', () => {
+    const p44_10 = Physics.solveProblem44({ v0: 50.0, aBoost: 2.0, burnoutAltitude: 150.0, g: 10.0 });
+    // Apex altitude: 150 + 3100 / (2 * 10) = 150 + 155 = 305.0 m exactly
+    assert.equal(p44_10.phase2.altitudeApex, 305.0);
+    // Coast time to apex: vBurn / 10 = sqrt(3100) / 10 ~ 5.56776 s
+    assert.ok(Math.abs(p44_10.phase2.deltaTApex - Math.sqrt(3100) / 10) < 1e-5);
   });
 });
 

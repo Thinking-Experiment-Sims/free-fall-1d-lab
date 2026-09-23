@@ -496,7 +496,7 @@
       ctx.fillStyle = "#d67b19";
       ctx.font = "600 11px Inter, sans-serif";
       ctx.textAlign = "right";
-      ctx.fillText(`Burnout Stage 1 Cutoff: ${state.p44.burnoutAltitude.toFixed(0)} m (a = +2 m/s² → -9.8 m/s²)`, rulerW + stageW - 12, yBurnoutPix - 6);
+      ctx.fillText(`Burnout Stage 1 Cutoff: ${state.p44.burnoutAltitude.toFixed(0)} m (a = +${state.p44.aBoost.toFixed(1)} m/s² → -${state.p44.g.toFixed(1)} m/s²)`, rulerW + stageW - 12, yBurnoutPix - 6);
 
       // Apex Threshold Line
       ctx.strokeStyle = "#0f7e9b";
@@ -1265,11 +1265,11 @@
       if (st.landed) {
         status = `Impact with Ground at t = ${state.p44.sol.phase2.tImpact.toFixed(2)} s (|v| = ${state.p44.sol.phase2.speedImpact.toFixed(1)} m/s)`;
       } else if (st.engineOn) {
-        status = `Stage 1 Engine Burn (+2.0 m/s²) to 150 m`;
+        status = `Stage 1 Engine Burn (+${state.p44.aBoost.toFixed(1)} m/s²) to ${state.p44.burnoutAltitude.toFixed(0)} m`;
       } else if (st.phase === "coast_up") {
-        status = `Free Fall Coasting to Apex (308.2 m)`;
+        status = `Free Fall Coasting to Apex (${state.p44.sol.phase2.altitudeApex.toFixed(1)} m)`;
       } else {
-        status = `Plummeting to Ground under Gravity (-9.8 m/s²)`;
+        status = `Plummeting to Ground under Gravity (-${state.p44.g.toFixed(1)} m/s²)`;
       }
     } else {
       const st = state.sandbox.sol.getState(t);
@@ -1674,6 +1674,15 @@
         }
       }));
 
+      // Gravity Toggle (9.8 vs 10)
+      grid.appendChild(createGravityToggleGroup(state.p43.g, (gVal) => {
+        state.p43.g = gVal;
+        recomputePhysics();
+        updateLegendLabels();
+        renderDerivationsAccordion();
+        setTime(0);
+      }));
+
     } else if (state.mode === "p44") {
       // Launch velocity v0
       grid.appendChild(createSliderGroup({
@@ -1724,6 +1733,14 @@
           renderDerivationsAccordion();
           setTime(0);
         }
+      }));
+
+      // Gravity Toggle (9.8 vs 10)
+      grid.appendChild(createGravityToggleGroup(state.p44.g, (gVal) => {
+        state.p44.g = gVal;
+        recomputePhysics();
+        renderDerivationsAccordion();
+        setTime(0);
       }));
 
     } else {

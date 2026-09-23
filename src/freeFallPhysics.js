@@ -320,6 +320,7 @@
         tRelease: tDelay,
         flightDuration: deltaT2,
         v0: v02,
+        v02: v02,
         tSplash: tSplash1,
         vImpact: vImpact2,
         speedImpact: Math.abs(vImpact2),
@@ -524,7 +525,7 @@
       {
         stepNumber: 3,
         title: "Interval 2 Setup: Free Fall Coast to Apex",
-        concept: "After burnout, ONLY gravity acts on the rocket: a2 = -g = -9.8 m/s². The rocket coasts upward until v = 0.",
+        concept: `After burnout, ONLY gravity acts on the rocket: a2 = -g = -${g.toFixed(1)} m/s². The rocket coasts upward until v = 0.`,
         math: [
           `\\text{New interval clock: } \\tau = t - t_{\\text{burn}}`,
           `v(\\tau) = v_{\\text{burn}} - g \\tau \\implies 0 = ${round(vBurn, 3)} - (${g.toFixed(1)}) \\Delta t_{\\text{apex}}`,
@@ -817,7 +818,7 @@
         mode: "p43",
         title: "Kinematics T-Chart: Simultaneous Splash (Stone 1 vs. Stone 2)",
         col1Header: "Stone 1 (Lead Drop, t = 0 s)",
-        col2Header: "Stone 2 (Delayed Throw, t = 1.0 s)",
+        col2Header: `Stone 2 (Delayed Throw, t = ${round(opt.tDelay, 1)} s)`,
         bridgeTitle: "Simultaneous Splash Constraint",
         bridgeTag: "Synchronized",
         bridgeSummary: `Single splash occurs at water level (y = 0 m) at clock time t = ${round(p.stone1.tSplash, 2)} s. Stone 2 is launched with a ${round(opt.tDelay, 1)} s delay, leaving only Δt = ${round(p.stone2.flightDuration, 2)} s of flight time. Required initial launch velocity: v₀₂ = ${round(p.stone2.v02, 2)} m/s.`,
