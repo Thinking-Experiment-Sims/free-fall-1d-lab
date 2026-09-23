@@ -1,0 +1,22 @@
+{
+  "name": "free-fall-1d-lab",
+  "version": "1.0.0",
+  "description": "Free Fall 1D Kinematics Studio - The Thinking Experiment",
+  "main": "src/freeFallPhysics.js",
+  "scripts": {
+    "test": "node --test tests/freeFallPhysics.test.js"
+  },
+  "keywords": [
+    "physics",
+    "kinematics",
+    "free-fall",
+    "gravity",
+    "problem-42",
+    "problem-43",
+    "problem-44",
+    "cornell-notes",
+    "the-thinking-experiment"
+  ],
+  "author": "Vladimir Lopez",
+  "license": "ISC"
+}

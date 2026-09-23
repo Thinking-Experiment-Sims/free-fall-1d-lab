@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fall 1D Kinematics Studio | The Thinking Experiment</title>
+  <meta name="description" content="Production-ready 1D vertical kinematics laboratory featuring Problem 42 (Raccoon well toss), Problem 43 (Mountain climber simultaneous splash), Problem 44 (Two-interval model rocket), and synchronized stacked y(t), v(t), a(t) kinematic graphs.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <!-- KaTeX for pristine vector mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Blueprint grid matching The Thinking Experiment Hub -->
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="shell">
+    <!-- Header Banner matching Hub Card Hero -->
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="hero-badges-row">
+            <a href="https://thinking-experiment-sims.github.io/interactive-physics/" class="brand-badge" title="Return to Physics Simulations Hub">← The Thinking Experiment</a>
+            <span class="lab-badge">⚡ Unit 1 Packet 6 §6.1 Free Fall</span>
+            <button type="button" class="guide-btn-badge" id="btnToggleGuide" aria-expanded="false">
+              📘 Guided Investigation Guide
+            </button>
+          </div>
+          <h1>Free Fall 1D Kinematics Studio</h1>
+          <p class="hero-subtitle">
+            Master one-dimensional vertical motion and sign conventions through four structured investigations: 
+            the <strong>Raccoon's Well Toss</strong> (symmetry of upward vs. downward throws), 
+            the <strong>Mountain Climber's Cliff</strong> (calculating launch speed for simultaneous splash), 
+            the <strong>Two-Interval Model Rocket</strong> (powered burn transitioning to pure free fall), 
+            and the <strong>Interactive Sandbox</strong> with synchronized stacked <span style="font-family:'JetBrains Mono',monospace; font-weight:700;">y(t), v(t), a(t)</span> real-time kinematic graphs.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Collapsible Guided Activity & How-To Drawer -->
+    <aside class="activity-guide-drawer" id="activityGuide" aria-label="Guided Laboratory Activities">
+      <div class="card-header">
+        <h2 class="card-title">💡 Guided Physics Investigations (Packet 6 §6.1)</h2>
+        <button type="button" class="btn btn-sm btn-secondary" id="btnCloseGuide">Close Guide &times;</button>
+      </div>
+      <div class="guide-grid">
+        <div class="guide-card-item">
+          <div class="guide-card-title">🦝 Problem 42: The Raccoon &amp; The Well</div>
+          <p><strong>Core Question:</strong> A raccoon tosses a stone upwards at +15 m/s into a 20 m well. How does it compare to throwing it straight down at -15 m/s?</p>
+          <ol>
+            <li>Observe the stone reach apex at <span style="font-family:'JetBrains Mono',monospace;">t = 1.53 s</span> (<span style="font-family:'JetBrains Mono',monospace;">h = +11.48 m</span> above lip).</li>
+            <li>Note return to lip level at <span style="font-family:'JetBrains Mono',monospace;">t = 3.06 s</span> with velocity <span style="font-family:'JetBrains Mono',monospace;">v = -15 m/s</span>.</li>
+            <li>Toggle <strong>Compare Downward Throw</strong>: both stones strike the water at the <em>exact same speed</em> (24.84 m/s)!</li>
+            <li>Verify time difference is exactly <span style="font-family:'JetBrains Mono',monospace;">2 × t_apex = 3.06 s</span>.</li>
+          </ol>
+        </div>
+
+        <div class="guide-card-item">
+          <div class="guide-card-title">🧗 Problem 43: Climber's Simultaneous Splash</div>
+          <p><strong>Core Question:</strong> Stone 1 is tossed up at +2.0 m/s from a 50 m cliff. Stone 2 is launched 1.0 s later. What initial velocity creates a single splash?</p>
+          <ol>
+            <li>Stone 1 requires <span style="font-family:'JetBrains Mono',monospace;">3.405 s</span> to reach water level (y = 0).</li>
+            <li>Stone 2 only has <span style="font-family:'JetBrains Mono',monospace;">2.405 s</span> of flight time.</li>
+            <li>Solve position equation: Stone 2 must be hurled downward at <span style="font-family:'JetBrains Mono',monospace;">v02 = -9.01 m/s</span>!</li>
+            <li>Watch both stones meet at the water line at the exact same millisecond.</li>
+          </ol>
+        </div>
+
+        <div class="guide-card-item">
+          <div class="guide-card-title">🚀 Problem 44: Two-Interval Model Rocket</div>
+          <p><strong>Core Question:</strong> A rocket accelerates upward at +2.0 m/s² until burnout at 150 m, then enters free fall under gravity. What is apex and flight time?</p>
+          <ol>
+            <li>Phase 1: Burns for <span style="font-family:'JetBrains Mono',monospace;">t = 2.84 s</span> reaching burnout velocity <span style="font-family:'JetBrains Mono',monospace;">v = 55.68 m/s</span>.</li>
+            <li>Observe the acceleration step function from <span style="font-family:'JetBrains Mono',monospace;">+2.0 m/s²</span> to <span style="font-family:'JetBrains Mono',monospace;">-9.8 m/s²</span> on the a(t) graph.</li>
+            <li>Rocket coasts upward for another <span style="font-family:'JetBrains Mono',monospace;">5.68 s</span>, reaching apex at <span style="font-family:'JetBrains Mono',monospace;">308.16 m</span>!</li>
+            <li>Total flight time to ground impact: <span style="font-family:'JetBrains Mono',monospace;">t = 16.45 s</span> at <span style="font-family:'JetBrains Mono',monospace;">v = -77.72 m/s</span>.</li>
+          </ol>
+        </div>
+
+        <div class="guide-card-item">
+          <div class="guide-card-title">⚙️ Free Fall Sandbox &amp; Gravity Presets</div>
+          <p><strong>Core Question:</strong> How do initial launch height, speed, and planetary gravity reshape kinematic curves?</p>
+          <ol>
+            <li>Compare Earth (<span style="font-family:'JetBrains Mono',monospace;">g = 9.8 m/s²</span>) with Moon (<span style="font-family:'JetBrains Mono',monospace;">1.62 m/s²</span>) and Mars (<span style="font-family:'JetBrains Mono',monospace;">3.71 m/s²</span>).</li>
+            <li>Test <strong>Zero-G</strong>: notice linear position graph and constant velocity line.</li>
+            <li>Enable <strong>Strobe Flash Dots</strong> to visualize Galileo's odd-number spacing law.</li>
+          </ol>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mode Navigation Tabs -->
+    <nav class="mode-nav-bar" role="tablist" aria-label="Investigation Modes">
+      <button type="button" class="mode-pill-btn active" data-mode="p42" role="tab" aria-selected="true">
+        <span>🦝</span> Problem 42: Well Toss
+        <span class="mode-badge-tag">v0 = ±15 m/s</span>
+      </button>
+      <button type="button" class="mode-pill-btn" data-mode="p43" role="tab" aria-selected="false">
+        <span>🧗</span> Problem 43: Mountain Climber
+        <span class="mode-badge-tag">Δt = 1.0 s</span>
+      </button>
+      <button type="button" class="mode-pill-btn" data-mode="p44" role="tab" aria-selected="false">
+        <span>🚀</span> Problem 44: Model Rocket
+        <span class="mode-badge-tag">2-Interval</span>
+      </button>
+      <button type="button" class="mode-pill-btn" data-mode="sandbox" role="tab" aria-selected="false">
+        <span>⚙️</span> Free Fall Sandbox
+        <span class="mode-badge-tag">Custom</span>
+      </button>
+    </nav>
+
+    <!-- Main Studio Workspace: 2 Columns -->
+    <main class="studio-grid">
+      <!-- ================================================================= -->
+      <!-- LEFT COLUMN: Canvas Simulation Stage & Playback Controls           -->
+      <!-- ================================================================= -->
+      <section class="studio-card" aria-label="Interactive Motion Simulation">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span id="sceneTitleIcon">🦝</span>
+            <span id="sceneTitleText">Drop Tower &amp; Motion Stage</span>
+          </h2>
+          <span class="card-badge" id="sceneBadge">1D Vertical Kinematics</span>
+        </div>
+
+        <!-- Canvas Viewport -->
+        <div class="canvas-viewport" id="canvasViewport">
+          <canvas id="simCanvas"></canvas>
+
+          <!-- Floating HUD Overlays -->
+          <div class="canvas-hud-overlay">
+            <div class="hud-chip">t = <span id="hudTime">0.00</span> s</div>
+            <div class="hud-chip">y = <span id="hudPosY">0.00</span> m</div>
+            <div class="hud-chip">v = <span id="hudVelY">0.00</span> m/s</div>
+            <div class="hud-chip">a = <span id="hudAccY">-9.80</span> m/s²</div>
+          </div>
+
+          <!-- Bottom Status Banner -->
+          <div class="canvas-status-banner">
+            <div>
+              <span class="status-indicator-dot" id="statusDot"></span>
+              <span id="statusMessage">Ready for simulation. Press Play or Scrub.</span>
+            </div>
+            <div id="statusDetail" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--muted);">
+              v0: +15.0 m/s
+            </div>
+          </div>
+        </div>
+
+        <!-- Playback Deck -->
+        <div class="playback-deck">
+          <div class="deck-row-controls">
+            <button type="button" class="btn btn-primary" id="btnPlayPause">
+              <span id="playIcon">▶</span> <span id="playText">Play</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnStepBack" title="Step Back (Left Arrow)">
+              ⏮ -0.05s
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnStepForward" title="Step Forward (Right Arrow)">
+              ⏭ +0.05s
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnReset" title="Reset (R)">
+              🔄 Reset
+            </button>
+
+            <!-- Speed Pills -->
+            <div class="speed-group" role="group" aria-label="Playback Speed">
+              <button type="button" class="speed-pill" data-speed="0.1">0.1x</button>
+              <button type="button" class="speed-pill" data-speed="0.25">0.25x</button>
+              <button type="button" class="speed-pill" data-speed="0.5">0.5x</button>
+              <button type="button" class="speed-pill active" data-speed="1.0">1.0x</button>
+              <button type="button" class="speed-pill" data-speed="2.0">2.0x</button>
+            </div>
+          </div>
+
+          <!-- Time Scrubber -->
+          <div class="scrub-container">
+            <span class="scrub-label">Clock</span>
+            <input type="range" class="scrub-slider" id="timeScrubber" min="0" max="4.07" step="0.01" value="0">
+            <span class="scrub-val" id="scrubValText">0.00 s</span>
+          </div>
+
+          <!-- Feature Toggles -->
+          <div class="toggle-deck-row">
+            <label class="custom-toggle-label">
+              <input type="checkbox" id="toggleStrobes" checked>
+              <span>Strobe Dots (Δt = 0.2s)</span>
+            </label>
+            <label class="custom-toggle-label">
+              <input type="checkbox" id="toggleVectors" checked>
+              <span>Velocity Vector (<span class="math-expr">v&#8407;</span>)</span>
+            </label>
+            <label class="custom-toggle-label">
+              <input type="checkbox" id="toggleRuler" checked>
+              <span>Height Ruler</span>
+            </label>
+            <label class="custom-toggle-label" id="compareToggleContainer">
+              <input type="checkbox" id="toggleCompareDownward">
+              <span id="compareToggleLabel">Compare Downward Throw (-15 m/s)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scenario Parameter Configuration Card -->
+        <div class="scenario-config-card" id="scenarioConfigCard">
+          <!-- Dynamic Controls populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- RIGHT COLUMN: Stacked Kinematic Graphs & Live Telemetry            -->
+      <!-- ================================================================= -->
+      <section class="studio-card graphs-card" aria-label="Synchronized Kinematic Graphs">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span>📈</span>
+            <span>Real-time Stacked Kinematic Graphs</span>
+          </h2>
+          <span class="card-badge" style="background:var(--accent-amber-light); color:var(--accent-amber-dark); border:1px solid var(--accent-amber-border);">
+            Synchronized Scrubbing
+          </span>
+        </div>
+
+        <!-- Telemetry Strip -->
+        <div class="graph-telemetry-strip">
+          <div class="tele-box">
+            <div class="tele-label">Clock (t)</div>
+            <div class="tele-value" id="teleClock">0.00 s</div>
+          </div>
+          <div class="tele-box">
+            <div class="tele-label">Position y(t)</div>
+            <div class="tele-value teal" id="teleY">0.00 m</div>
+          </div>
+          <div class="tele-box">
+            <div class="tele-label">Velocity v(t)</div>
+            <div class="tele-value teal" id="teleV">+15.0 m/s</div>
+          </div>
+          <div class="tele-box">
+            <div class="tele-label">Acceleration a(t)</div>
+            <div class="tele-value" id="teleA">-9.80 m/s²</div>
+          </div>
+        </div>
+
+        <!-- Stacked Canvas for y(t), v(t), a(t) -->
+        <div class="stacked-canvas-container" id="graphsCanvasContainer">
+          <canvas id="graphsCanvas"></canvas>
+        </div>
+
+        <!-- Graph Legend Bar -->
+        <div class="graph-legend-bar">
+          <div class="legend-items-wrap">
+            <div class="legend-item">
+              <span class="legend-swatch teal"></span>
+              <span id="legendObj1Label">Primary Trajectory</span>
+            </div>
+            <div class="legend-item" id="legendObj2Item" style="display:none;">
+              <span class="legend-swatch amber"></span>
+              <span id="legendObj2Label">Secondary / Downward</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch dashed"></span>
+              <span>Zero-Axis / Reference</span>
+            </div>
+          </div>
+          <div style="font-size:0.75rem; font-weight:600;">
+            Click or drag graph to scrub time
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- BOTTOM SECTION 1: Step-by-Step Pedagogical Derivations (No Shortcuts) -->
+    <!-- =================================================================== -->
+    <section class="studio-card pedagogy-section" aria-label="Step-by-Step Pedagogical Derivations">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span>📐</span>
+          <span id="derivationsHeading">Pedagogical Step-by-Step Derivation (Zero Shortcut Equations)</span>
+        </h2>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnExpandAllSteps">Expand All</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCollapseAllSteps">Collapse All</button>
+        </div>
+      </div>
+
+      <div class="steps-accordion" id="stepsAccordion">
+        <!-- Rendered dynamically by freeFallApp.js using FreeFallPhysics.steps -->
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- BOTTOM SECTION 2: Cornell 1D Kinematics T-Chart                      -->
+    <!-- =================================================================== -->
+    <section class="studio-card" aria-label="Cornell 1D Kinematics T-Chart">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span>📋</span>
+          <span>Cornell 1D Kinematics T-Chart: Core Foundational Pillars</span>
+        </h2>
+        <span class="card-badge">Unit 1 Packet 6 Core Framework</span>
+      </div>
+
+      <div class="tchart-container" id="cornellTChartContainer">
+        <!-- Rendered dynamically by freeFallApp.js from getCornellTChartData() -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+      <p>
+        <strong>The Thinking Experiment (PhysicsKit)</strong> &bull; Free Fall 1D Kinematics Studio &bull;
+        Authored by <a href="https://github.com/vladimirlopez" target="_blank" rel="noopener">Vladimir Lopez</a>.
+        Adheres strictly to the professional physics design system (Teal &amp; Amber palette).
+      </p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/freeFallPhysics.js"></script>
+  <script src="src/freeFallApp.js"></script>
+</body>
+</html>
