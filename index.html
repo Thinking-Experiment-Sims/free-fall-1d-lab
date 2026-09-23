@@ -42,12 +42,12 @@
     <!-- Collapsible Guided Activity & How-To Drawer -->
     <aside class="activity-guide-drawer" id="activityGuide" aria-label="Guided Laboratory Activities">
       <div class="card-header">
-        <h2 class="card-title">💡 Guided Physics Investigations (Packet 6 §6.1)</h2>
+        <h2 class="card-title">💡 Guided Physics Investigations &amp; Scenarios</h2>
         <button type="button" class="btn btn-sm btn-secondary" id="btnCloseGuide">Close Guide &times;</button>
       </div>
       <div class="guide-grid">
         <div class="guide-card-item">
-          <div class="guide-card-title">🦝 Problem 42: The Raccoon &amp; The Well</div>
+          <div class="guide-card-title">🦝 The Well Toss: Symmetry &amp; Free Fall</div>
           <p><strong>Core Question:</strong> A raccoon tosses a stone upwards at +15 m/s into a 20 m well. How does it compare to throwing it straight down at -15 m/s?</p>
           <ol>
             <li>Observe the stone reach apex at <span style="font-family:'JetBrains Mono',monospace;">t = 1.53 s</span> (<span style="font-family:'JetBrains Mono',monospace;">h = +11.48 m</span> above lip).</li>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="guide-card-item">
-          <div class="guide-card-title">🧗 Problem 43: Climber's Simultaneous Splash</div>
+          <div class="guide-card-title">🧗 Cliff Drop: Simultaneous Splash</div>
           <p><strong>Core Question:</strong> Stone 1 is tossed up at +2.0 m/s from a 50 m cliff. Stone 2 is launched 1.0 s later. What initial velocity creates a single splash?</p>
           <ol>
             <li>Stone 1 requires <span style="font-family:'JetBrains Mono',monospace;">3.405 s</span> to reach water level (y = 0).</li>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="guide-card-item">
-          <div class="guide-card-title">🚀 Problem 44: Two-Interval Model Rocket</div>
+          <div class="guide-card-title">🚀 Two-Stage Model Rocket: Boost &amp; Coast</div>
           <p><strong>Core Question:</strong> A rocket accelerates upward at +2.0 m/s² until burnout at 150 m, then enters free fall under gravity. What is apex and flight time?</p>
           <ol>
             <li>Phase 1: Burns for <span style="font-family:'JetBrains Mono',monospace;">t = 2.84 s</span> reaching burnout velocity <span style="font-family:'JetBrains Mono',monospace;">v = 55.68 m/s</span>.</li>
@@ -80,7 +80,7 @@
         </div>
 
         <div class="guide-card-item">
-          <div class="guide-card-title">⚙️ Free Fall Sandbox &amp; Gravity Presets</div>
+          <div class="guide-card-title">⚙️ Free Fall Sandbox: Multi-Body Dynamics</div>
           <p><strong>Core Question:</strong> How do initial launch height, speed, and planetary gravity reshape kinematic curves?</p>
           <ol>
             <li>Compare Earth (<span style="font-family:'JetBrains Mono',monospace;">g = 9.8 m/s²</span>) with Moon (<span style="font-family:'JetBrains Mono',monospace;">1.62 m/s²</span>) and Mars (<span style="font-family:'JetBrains Mono',monospace;">3.71 m/s²</span>).</li>
@@ -94,20 +94,20 @@
     <!-- Mode Navigation Tabs -->
     <nav class="mode-nav-bar" role="tablist" aria-label="Investigation Modes">
       <button type="button" class="mode-pill-btn active" data-mode="p42" role="tab" aria-selected="true">
-        <span>🦝</span> Problem 42: Well Toss
+        <span>🦝</span> Well Toss: Symmetry
         <span class="mode-badge-tag">v0 = ±15 m/s</span>
       </button>
       <button type="button" class="mode-pill-btn" data-mode="p43" role="tab" aria-selected="false">
-        <span>🧗</span> Problem 43: Mountain Climber
+        <span>🧗</span> Cliff Drop: 2-Stone Splash
         <span class="mode-badge-tag">Δt = 1.0 s</span>
       </button>
       <button type="button" class="mode-pill-btn" data-mode="p44" role="tab" aria-selected="false">
-        <span>🚀</span> Problem 44: Model Rocket
-        <span class="mode-badge-tag">2-Interval</span>
+        <span>🚀</span> Two-Stage Rocket
+        <span class="mode-badge-tag">Boost &amp; Coast</span>
       </button>
       <button type="button" class="mode-pill-btn" data-mode="sandbox" role="tab" aria-selected="false">
         <span>⚙️</span> Free Fall Sandbox
-        <span class="mode-badge-tag">Custom</span>
+        <span class="mode-badge-tag">Multi-Body</span>
       </button>
     </nav>
 
@@ -120,9 +120,30 @@
         <div class="card-header">
           <h2 class="card-title">
             <span id="sceneTitleIcon">🦝</span>
-            <span id="sceneTitleText">Drop Tower &amp; Motion Stage</span>
+            <span id="sceneTitleText">The Well Toss: Symmetry &amp; Free Fall</span>
           </h2>
-          <span class="card-badge" id="sceneBadge">1D Vertical Kinematics</span>
+          <span class="card-badge" id="sceneBadge">Vertical Kinematics Inquiry</span>
+        </div>
+
+        <!-- Problem Statement & Questions Card -->
+        <div class="inquiry-scenario-card" id="inquiryScenarioCard">
+          <div class="inquiry-header">
+            <h3 class="inquiry-title" id="inquiryTitle">The Well Toss: Symmetry &amp; Free Fall</h3>
+            <span class="inquiry-tag" id="inquiryTag">Vertical Kinematics</span>
+          </div>
+          <p class="inquiry-narrative" id="inquiryNarrative">
+            A curious raccoon tosses a stone vertically upward with an initial velocity of +15.0 m/s from the lip of a 20.0 m deep dry well (water surface at y = -20.0 m).
+          </p>
+          <div class="inquiry-questions-box">
+            <div class="inquiry-questions-heading">Investigation Questions:</div>
+            <ol class="inquiry-questions-list" id="inquiryQuestionsList">
+              <li><strong>(a) Maximum Height:</strong> What is the stone's maximum altitude above the well lip?</li>
+              <li><strong>(b) Time to Apex:</strong> How long does it take to reach the highest point (v = 0)?</li>
+              <li><strong>(c) Splash Time:</strong> How long after release does the stone strike the water at the bottom?</li>
+              <li><strong>(d) Impact Velocity:</strong> What is its speed right before it hits the water?</li>
+              <li><strong>(e) Velocity Symmetry:</strong> If thrown downward at -15.0 m/s instead, how does its splash speed compare?</li>
+            </ol>
+          </div>
         </div>
 
         <!-- Canvas Viewport -->
@@ -300,7 +321,7 @@
           <span>📋</span>
           <span>Cornell 1D Kinematics T-Chart: Core Foundational Pillars</span>
         </h2>
-        <span class="card-badge">Unit 1 Packet 6 Core Framework</span>
+        <span class="card-badge">Kinematic Principles Framework</span>
       </div>
 
       <div class="tchart-container" id="cornellTChartContainer">
@@ -310,11 +331,7 @@
 
     <!-- Footer -->
     <footer class="footer-bar">
-      <p>
-        <strong>The Thinking Experiment (PhysicsKit)</strong> &bull; Free Fall 1D Kinematics Studio &bull;
-        Authored by <a href="https://github.com/vladimirlopez" target="_blank" rel="noopener">Vladimir Lopez</a>.
-        Adheres strictly to the professional physics design system (Teal &amp; Amber palette).
-      </p>
+      <p>&copy; 2026 Vladimir Lopez &middot; The Thinking Experiment &middot; Interactive Physics Simulations</p>
     </footer>
   </div>
 

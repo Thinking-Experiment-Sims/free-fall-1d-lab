@@ -63,6 +63,13 @@
   const sceneTitleText = document.getElementById("sceneTitleText");
   const sceneBadge = document.getElementById("sceneBadge");
 
+  // Problem / Inquiry Scenario Card
+  const inquiryScenarioCard = document.getElementById("inquiryScenarioCard");
+  const inquiryTitle = document.getElementById("inquiryTitle");
+  const inquiryTag = document.getElementById("inquiryTag");
+  const inquiryNarrative = document.getElementById("inquiryNarrative");
+  const inquiryQuestionsList = document.getElementById("inquiryQuestionsList");
+
   // Toggles
   const toggleStrobes = document.getElementById("toggleStrobes");
   const toggleVectors = document.getElementById("toggleVectors");
@@ -952,13 +959,16 @@
       aRange = { min: -state.p43.g - 3, max: 2 };
     } else if (state.mode === "p44") {
       yRange = { min: -10, max: state.p44.sol.phase2.altitudeApex + 20 };
-      vRange = { min: state.p44.sol.phase2.vImpact - 10, max: state.p44.phase1.vEnd + 10 };
+      vRange = { min: state.p44.sol.phase2.vImpact - 10, max: state.p44.sol.phase1.vEnd + 10 };
       aRange = { min: -state.p44.g - 3, max: state.p44.aBoost + 2 };
     } else {
       const gY = state.sandbox.groundY;
       const ap = Math.max(state.sandbox.y0, state.sandbox.sol.yApex);
       yRange = { min: gY - 4, max: ap + 6 };
-      vRange = { min: -30, max: 30 };
+      vRange = {
+        min: Math.min(-30, isFinite(state.sandbox.sol.vImpact) ? state.sandbox.sol.vImpact - 5 : -30),
+        max: Math.max(30, state.sandbox.v0 + 5)
+      };
       aRange = { min: -state.sandbox.g - 2, max: 2 };
     }
 
@@ -1283,29 +1293,43 @@
     teleA.textContent = `${a.toFixed(2)} m/s²`;
   }
 
+  let animFrameId = null;
+
   function animationLoop(timestamp) {
-    if (!state.lastFrameTime) state.lastFrameTime = timestamp;
-    const dt = (timestamp - state.lastFrameTime) / 1000;
+    animFrameId = requestAnimationFrame(animationLoop);
+
+    if (!state.lastFrameTime) {
+      state.lastFrameTime = timestamp;
+      return;
+    }
+    const dt = Math.min((timestamp - state.lastFrameTime) / 1000, 0.1);
     state.lastFrameTime = timestamp;
 
     if (state.isPlaying) {
-      const advanceTime = Math.min(dt, 0.1) * state.speed;
-      setTime(state.simTime + advanceTime);
+      try {
+        const advanceTime = dt * state.speed;
+        setTime(state.simTime + advanceTime);
+      } catch (err) {
+        console.error("Simulation animation error:", err);
+      }
     }
-
-    requestAnimationFrame(animationLoop);
   }
 
   function playSimulation() {
-    if (state.simTime >= state.maxTime) {
+    if (state.simTime >= state.maxTime - 0.02) {
       setTime(0);
     }
     state.isPlaying = true;
+    state.lastFrameTime = performance.now();
     state.lastSplashTriggered = false;
     playIcon.textContent = "⏸";
     playText.textContent = "Pause";
     btnPlayPause.classList.remove("btn-primary");
     btnPlayPause.classList.add("btn-amber");
+
+    if (!animFrameId) {
+      animFrameId = requestAnimationFrame(animationLoop);
+    }
   }
 
   function pauseSimulation() {
@@ -1436,22 +1460,22 @@
       b.setAttribute("aria-selected", isActive);
     });
 
-    // Update Headings & Badges
+    // Update Headings, Badges & Inquiry Scenario Text (No Problem Numbers!)
     if (newMode === "p42") {
       sceneTitleIcon.textContent = "🦝";
-      sceneTitleText.textContent = "Problem 42: Well Toss & Velocity Symmetry";
-      sceneBadge.textContent = "Unit 1 Packet 6 §6.1";
+      sceneTitleText.textContent = "The Well Toss: Symmetry & Free Fall";
+      sceneBadge.textContent = "Vertical Kinematics Inquiry";
       compareToggleContainer.style.display = "inline-flex";
       compareToggleLabel.textContent = "Compare Downward Throw (-15 m/s)";
     } else if (newMode === "p43") {
       sceneTitleIcon.textContent = "🧗";
-      sceneTitleText.textContent = "Problem 43: Mountain Climber & Simultaneous Splash";
-      sceneBadge.textContent = "Unit 1 Packet 6 §6.1";
+      sceneTitleText.textContent = "Cliff Drop: Simultaneous Splash Challenge";
+      sceneBadge.textContent = "Two-Body Kinematics";
       compareToggleContainer.style.display = "none";
     } else if (newMode === "p44") {
       sceneTitleIcon.textContent = "🚀";
-      sceneTitleText.textContent = "Problem 44: Model Rocket Two-Interval Kinematics";
-      sceneBadge.textContent = "Unit 1 Packet 6 §6.1";
+      sceneTitleText.textContent = "Two-Stage Model Rocket: Powered Ascent & Free Fall";
+      sceneBadge.textContent = "Multi-Interval Kinematics";
       compareToggleContainer.style.display = "none";
     } else {
       sceneTitleIcon.textContent = "⚙️";
@@ -1460,11 +1484,69 @@
       compareToggleContainer.style.display = "none";
     }
 
+    updateInquiryScenario(newMode);
     recomputePhysics();
     updateLegendLabels();
     renderScenarioConfigCard();
     renderDerivationsAccordion();
     setTime(0);
+  }
+
+  const scenarioDefinitions = {
+    p42: {
+      title: "The Well Toss: Symmetry & Free Fall",
+      tag: "Vertical Kinematics",
+      narrative: "A curious raccoon tosses a stone vertically upward with an initial velocity of +15.0 m/s from the lip of a 20.0 m deep dry well (water surface at y = -20.0 m).",
+      questions: [
+        "<strong>(a) Maximum Height:</strong> What is the stone's maximum altitude above the well lip?",
+        "<strong>(b) Time to Apex:</strong> How long does it take to reach the highest point (v = 0)?",
+        "<strong>(c) Splash Time:</strong> How long after release does the stone strike the water at the bottom?",
+        "<strong>(d) Impact Velocity:</strong> What is its speed right before it hits the water?",
+        "<strong>(e) Velocity Symmetry:</strong> If thrown downward at -15.0 m/s instead, how does its splash speed compare? Check the downward comparison box to verify!"
+      ]
+    },
+    p43: {
+      title: "Cliff Drop: Simultaneous Splash Challenge",
+      tag: "Two-Body Kinematics",
+      narrative: "A mountain climber on a 50.0 m high cliff above a lake drops a first stone at t = 0 s with an upward velocity of +2.0 m/s. Exactly 1.0 s later, the climber throws a second stone downward such that both stones hit the water at the exact same instant, creating a single simultaneous splash.",
+      questions: [
+        "<strong>(a) Stone 1 Flight Time:</strong> How many seconds does Stone 1 spend in the air before reaching the water?",
+        "<strong>(b) Stone 2 Available Time:</strong> Given the 1.0 s delay, what is the exact flight duration available for Stone 2?",
+        "<strong>(c) Required Launch Velocity:</strong> What initial velocity (v02) must Stone 2 have upon release so that both stones splash simultaneously?",
+        "<strong>(d) Impact Comparison:</strong> Which stone strikes the water with greater speed, and why?"
+      ]
+    },
+    p44: {
+      title: "Two-Stage Model Rocket: Powered Ascent & Free Fall",
+      tag: "Multi-Interval Kinematics",
+      narrative: "A model rocket blasts off vertically from the ground (y0 = 0 m) with an initial upward velocity of 50.0 m/s. Its engine provides a constant net upward acceleration of a = +2.0 m/s² until burnout at an altitude of 150.0 m. After burnout, the engine shuts off and the rocket continues in unpowered free fall under gravity (a = -9.8 m/s²).",
+      questions: [
+        "<strong>(a) Burnout Velocity & Time:</strong> What is the rocket's upward velocity (v_burn) and clock time (t_burn) at engine burnout?",
+        "<strong>(b) Free-Fall Coast & Apex:</strong> How much higher does the rocket coast under gravity alone, and what is its maximum peak altitude?",
+        "<strong>(c) Total Flight Time:</strong> How many total seconds elapse from launch until the rocket crashes back to Earth?",
+        "<strong>(d) Crash Impact Velocity:</strong> With what speed does the rocket strike the ground?"
+      ]
+    },
+    sandbox: {
+      title: "Free Fall Sandbox: Multi-Body Dynamics",
+      tag: "Open Investigation",
+      narrative: "Freely investigate vertical 1D kinematics under uniform gravitational fields. Adjust release height (y0), initial velocity (v0), and gravity (g) across Earth, Moon, Mars, and Zero-G to observe position, velocity, and acceleration graphs in real time.",
+      questions: [
+        "<strong>(a) Height vs. Hang Time:</strong> How does varying initial height affect time to ground vs. peak altitude?",
+        "<strong>(b) Zero-Gravity Behavior:</strong> What happens to the kinematic curves when gravity is set to 0.0 m/s²?",
+        "<strong>(c) Galileo's Strobe Spacing:</strong> How does the spacing between equal-time strobe dots demonstrate that distance grows quadratically (d ∝ t²)?"
+      ]
+    }
+  };
+
+  function updateInquiryScenario(mode) {
+    const scen = scenarioDefinitions[mode] || scenarioDefinitions.p42;
+    if (inquiryTitle) inquiryTitle.textContent = scen.title;
+    if (inquiryTag) inquiryTag.textContent = scen.tag;
+    if (inquiryNarrative) inquiryNarrative.textContent = scen.narrative;
+    if (inquiryQuestionsList) {
+      inquiryQuestionsList.innerHTML = scen.questions.map(q => `<li>${q}</li>`).join("");
+    }
   }
 
   function updateLegendLabels() {
@@ -1767,7 +1849,11 @@
     `;
     group.querySelectorAll(".gravity-pill").forEach((btn) => {
       btn.addEventListener("click", () => {
-        onSelect(parseFloat(btn.dataset.g));
+        const val = parseFloat(btn.dataset.g);
+        group.querySelectorAll(".gravity-pill").forEach((b) => b.classList.toggle("active", b === btn));
+        const disp = group.querySelector("span");
+        if (disp) disp.textContent = `g = ${val.toFixed(1)} m/s²`;
+        onSelect(val);
       });
     });
     return group;
@@ -1914,13 +2000,14 @@
   function init() {
     recomputePhysics();
     resizeCanvases();
+    updateInquiryScenario(state.mode);
     renderScenarioConfigCard();
     renderDerivationsAccordion();
     renderCornellTChart();
     updateLegendLabels();
     setTime(0);
 
-    requestAnimationFrame(animationLoop);
+    animFrameId = requestAnimationFrame(animationLoop);
   }
 
   // Wait for DOM & KaTeX
