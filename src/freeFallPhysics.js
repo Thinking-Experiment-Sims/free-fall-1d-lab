@@ -174,14 +174,15 @@
     return [
       {
         stepNumber: 1,
-        title: "Coordinate System & Given Values",
-        concept: "Establish origin, sign convention (+y is UP, -y is DOWN), and identified constants.",
+        title: "Step 1: Set Up the Kinematics T-Chart (Knowns & Sign Conventions)",
+        concept: "Organize known values in a two-column T-chart: Upward Toss (+v0) vs. Downward Throw (-v0). Sign convention: +y is UP, -y is DOWN.",
         math: [
-          `\\text{Origin } y = 0 \\text{ at the well lip.}`,
-          `y_0 = 0.0\\text{ m}, \\quad y_{\\text{final}} = -${wellDepth.toFixed(1)}\\text{ m (water surface)}`,
-          `v_0 = +${v0.toFixed(1)}\\text{ m/s (upward)}, \\quad a = -g = -${g.toFixed(1)}\\text{ m/s}^2`
+          `\\text{Origin } y = 0 \\text{ at the well lip. Water surface at } y_{\\text{final}} = -${wellDepth.toFixed(1)}\\text{ m.}`,
+          `\\text{Upward Toss: } v_0 = +${v0.toFixed(1)}\\text{ m/s}, \\quad a = -g = -${g.toFixed(1)}\\text{ m/s}^2`,
+          `\\text{Downward Throw: } v_0 = -${v0.toFixed(1)}\\text{ m/s}, \\quad a = -g = -${g.toFixed(1)}\\text{ m/s}^2`,
+          `\\text{Displacement: } \\Delta y = y_{\\text{final}} - y_0 = -${wellDepth.toFixed(1)}\\text{ m}`
         ],
-        explanation: `We define upward as positive. The stone begins at y = 0 m and travels upward while gravity exerts a constant downward acceleration of -${g.toFixed(1)} m/s². The bottom of the well sits at y = -${wellDepth.toFixed(1)} m.`
+        explanation: `In standard physics problem-solving, Step 1 is always constructing the Kinematics T-Chart. We place Upward Toss in Column 1 and Downward Throw in Column 2. Note that acceleration is -${g.toFixed(1)} m/s² for both cases because gravity acts downward regardless of release direction.`
       },
       {
         stepNumber: 2,
@@ -334,14 +335,15 @@
     return [
       {
         stepNumber: 1,
-        title: "Coordinate System & Stone 1 Given Values",
-        concept: "Define water level as y = 0 and cliff top as y0 = +cliffHeight.",
+        title: "Step 1: Set Up the Two-Body Kinematics T-Chart (Stone 1 vs. Stone 2)",
+        concept: "Construct a two-column T-chart for the two independent bodies under a shared simultaneous splash constraint.",
         math: [
-          `\\text{Origin } y = 0 \\text{ at water surface, cliff at } y_0 = +${cliffHeight.toFixed(1)}\\text{ m}`,
+          `\\text{Origin } y = 0 \\text{ at water level, cliff at } y_0 = +${cliffHeight.toFixed(1)}\\text{ m.}`,
           `\\text{Stone 1: } v_{01} = +${v01.toFixed(1)}\\text{ m/s}, \\quad a = -${g.toFixed(1)}\\text{ m/s}^2, \\quad t_{\\text{release}} = 0.0\\text{ s}`,
-          `\\text{Stone 2: } y_0 = +${cliffHeight.toFixed(1)}\\text{ m}, \\quad t_{\\text{release}} = ${tDelay.toFixed(1)}\\text{ s}, \\quad v_{02} = \\text{?}`
+          `\\text{Stone 2: } y_0 = +${cliffHeight.toFixed(1)}\\text{ m}, \\quad t_{\\text{release}} = ${tDelay.toFixed(1)}\\text{ s}, \\quad v_{02} = \\text{? (Target Unknown)}`,
+          `\\text{Simultaneous Constraint: } t_{\\text{splash,1}} = t_{\\text{delay}} + \\Delta t_2`
         ],
-        explanation: `Stone 1 is tossed upward at +${v01.toFixed(1)} m/s from 50.0 m high. Stone 2 is held until t = ${tDelay.toFixed(1)} s. Both must hit y = 0 m simultaneously.`
+        explanation: `In multi-object kinematics, setting up a side-by-side T-chart is essential. Stone 1 launches at t = 0 s, while Stone 2 is held for ${tDelay.toFixed(1)} s. Both must strike the water simultaneously.`
       },
       {
         stepNumber: 2,
@@ -499,15 +501,15 @@
     return [
       {
         stepNumber: 1,
-        title: "Interval 1 Setup: Powered Boost (0 to t_burn)",
-        concept: "The rocket is pushed upward by its engine with net upward acceleration a = +2.0 m/s².",
+        title: "Step 1: Set Up the Two-Interval Kinematics T-Chart (Boost vs. Free Fall)",
+        concept: "Segment motion into two distinct constant-acceleration intervals separated by engine burnout. Interval 1 has engine thrust; Interval 2 is pure gravitational free fall.",
         math: [
-          `y_0 = 0\\text{ m}, \\quad v_0 = +${v0.toFixed(1)}\\text{ m/s}, \\quad a_1 = +${aBoost.toFixed(1)}\\text{ m/s}^2`,
-          `y_{\\text{burn}} = ${burnoutAlt.toFixed(1)}\\text{ m (engine burns out here)}`,
-          `v_{\\text{burn}}^2 = v_0^2 + 2 a_1 (y_{\\text{burn}} - y_0) = (${v0.toFixed(1)})^2 + 2(+${aBoost.toFixed(1)})(${burnoutAlt.toFixed(1)}) = ${round(vBurn * vBurn, 1)}`,
-          `v_{\\text{burn}} = \\sqrt{${round(vBurn * vBurn, 1)}} = ${round(vBurn, 3)}\\text{ m/s}`
+          `\\text{Interval 1 (Powered Boost): } y_0 = 0\\text{ m}, \\quad v_0 = +${v0.toFixed(1)}\\text{ m/s}, \\quad a_1 = +${aBoost.toFixed(1)}\\text{ m/s}^2`,
+          `\\text{Burnout Altitude: } y_{\\text{burn}} = ${burnoutAlt.toFixed(1)}\\text{ m (engine cuts off here)}`,
+          `\\text{State Continuity: } v_{\\text{burn}}^2 = v_0^2 + 2 a_1 (y_{\\text{burn}} - y_0) = (${v0.toFixed(1)})^2 + 2(+${aBoost.toFixed(1)})(${burnoutAlt.toFixed(1)}) = ${round(vBurn * vBurn, 1)}`,
+          `v_{\\text{burn}} = \\sqrt{${round(vBurn * vBurn, 1)}} = ${round(vBurn, 3)}\\text{ m/s (becomes initial velocity for Interval 2!)}`
         ],
-        explanation: `At engine burnout (y = ${burnoutAlt.toFixed(1)} m), the rocket is traveling upward at ${round(vBurn, 2)} m/s.`
+        explanation: `In multi-stage motion, constructing a two-column T-chart separates the constant-acceleration stages. At burnout (y = ${burnoutAlt.toFixed(1)} m), the rocket's velocity of ${round(vBurn, 2)} m/s is handed off as the initial velocity for the gravitational free-fall stage.`
       },
       {
         stepNumber: 2,
@@ -618,13 +620,13 @@
     return [
       {
         stepNumber: 1,
-        title: "Coordinate System & Initial Parameters",
-        concept: "Origin defined with +y upward, gravity pulling downward.",
+        title: "Step 1: Set Up the Kinematics T-Chart (Knowns & Target Milestones)",
+        concept: "Construct a two-column T-chart separating given initial kinematics parameters from target unknowns.",
         math: [
-          `y_0 = ${y0.toFixed(1)}\\text{ m}, \\quad v_0 = ${v0 >= 0 ? '+' : ''}${v0.toFixed(1)}\\text{ m/s}`,
-          `a = -g = -${g.toFixed(2)}\\text{ m/s}^2, \\quad y_{\\text{ground}} = ${groundY.toFixed(1)}\\text{ m}`
+          `\\text{Given: } y_0 = ${y0.toFixed(1)}\\text{ m}, \\quad v_0 = ${v0 >= 0 ? '+' : ''}${v0.toFixed(1)}\\text{ m/s}, \\quad a = -g = -${g.toFixed(2)}\\text{ m/s}^2`,
+          `\\text{Target Ground Level: } y_{\\text{ground}} = ${groundY.toFixed(1)}\\text{ m}`
         ],
-        explanation: `Initial position is ${y0.toFixed(1)} m with velocity ${v0.toFixed(1)} m/s under local gravity g = ${g.toFixed(2)} m/s².`
+        explanation: `In standard problem-solving, Step 1 organizes initial parameters in Column 1 and target kinematics milestones (apex, time in air, landing speed) in Column 2.`
       },
       {
         stepNumber: 2,
@@ -781,6 +783,99 @@
     };
   }
 
+  // =========================================================================
+  // DYNAMIC SCENARIO KINEMATICS T-CHART DATA (PROBLEM-SOLVING SETUP)
+  // =========================================================================
+  function getScenarioTChart(mode, options = {}) {
+    if (mode === "p42") {
+      const p = solveProblem42(options);
+      const opt = p.inputs;
+      return {
+        mode: "p42",
+        title: "Kinematics T-Chart: The Well Toss (Symmetry & Splash)",
+        col1Header: "Upward Toss (+v₀)",
+        col2Header: "Downward Throw (-v₀)",
+        bridgeTitle: "Kinematic Symmetry Link",
+        bridgeTag: "Symmetry",
+        bridgeSummary: `At the well lip (y = 0) on the downward journey, the upward stone has v = -${opt.v0.toFixed(1)} m/s, identical to the downward stone's initial release! Both splash at identical speed: ${round(Math.abs(p.upward.vImpact), 2)} m/s. Flight time difference Δt = 2 × t_apex = ${round(2 * p.tApex, 2)} s.`,
+        rows: [
+          { symbol: "y₀", label: "Initial Height", col1: "0.0 m (lip)", col2: "0.0 m (lip)" },
+          { symbol: "y_f", label: "Water Level", col1: `-${opt.wellDepth.toFixed(1)} m`, col2: `-${opt.wellDepth.toFixed(1)} m` },
+          { symbol: "Δy", label: "Displacement", col1: `-${opt.wellDepth.toFixed(1)} m`, col2: `-${opt.wellDepth.toFixed(1)} m` },
+          { symbol: "v₀", label: "Initial Velocity", col1: `+${opt.v0.toFixed(1)} m/s`, col2: `-${opt.v0.toFixed(1)} m/s` },
+          { symbol: "a", label: "Acceleration", col1: `-${opt.g.toFixed(1)} m/s²`, col2: `-${opt.g.toFixed(1)} m/s²` },
+          { symbol: "t_apex", label: "Time to Apex", col1: `${round(p.tApex, 2)} s`, col2: "— (none)" },
+          { symbol: "y_max", label: "Peak Altitude", col1: `+${round(p.yApex, 2)} m`, col2: "0.0 m (lip)" },
+          { symbol: "t_splash", label: "Splash Time", col1: `${round(p.upward.tSplash, 2)} s`, col2: `${round(p.downward.tSplash, 2)} s` },
+          { symbol: "v_impact", label: "Splash Velocity", col1: `${round(p.upward.vImpact, 2)} m/s`, col2: `${round(p.downward.vImpact, 2)} m/s` }
+        ]
+      };
+    } else if (mode === "p43") {
+      const p = solveProblem43(options);
+      const opt = p.inputs;
+      return {
+        mode: "p43",
+        title: "Kinematics T-Chart: Simultaneous Splash (Stone 1 vs. Stone 2)",
+        col1Header: "Stone 1 (Lead Drop, t = 0 s)",
+        col2Header: "Stone 2 (Delayed Throw, t = 1.0 s)",
+        bridgeTitle: "Simultaneous Splash Constraint",
+        bridgeTag: "Synchronized",
+        bridgeSummary: `Single splash occurs at water level (y = 0 m) at clock time t = ${round(p.stone1.tSplash, 2)} s. Stone 2 is launched with a ${round(opt.tDelay, 1)} s delay, leaving only Δt = ${round(p.stone2.flightDuration, 2)} s of flight time. Required initial launch velocity: v₀₂ = ${round(p.stone2.v02, 2)} m/s.`,
+        rows: [
+          { symbol: "y₀", label: "Cliff Height", col1: `+${opt.cliffHeight.toFixed(1)} m`, col2: `+${opt.cliffHeight.toFixed(1)} m` },
+          { symbol: "y_f", label: "Water Level", col1: "0.0 m", col2: "0.0 m" },
+          { symbol: "Δy", label: "Displacement", col1: `-${opt.cliffHeight.toFixed(1)} m`, col2: `-${opt.cliffHeight.toFixed(1)} m` },
+          { symbol: "t_rel", label: "Release Clock Time", col1: "0.00 s", col2: `${round(opt.tDelay, 2)} s` },
+          { symbol: "v₀", label: "Initial Velocity", col1: `+${opt.v01.toFixed(1)} m/s`, col2: `${round(p.stone2.v02, 2)} m/s` },
+          { symbol: "a", label: "Acceleration", col1: `-${opt.g.toFixed(1)} m/s²`, col2: `-${opt.g.toFixed(1)} m/s²` },
+          { symbol: "Δt", label: "Flight Duration", col1: `${round(p.stone1.tSplash, 2)} s`, col2: `${round(p.stone2.flightDuration, 2)} s` },
+          { symbol: "t_splash", label: "Splash Clock Time", col1: `${round(p.stone1.tSplash, 2)} s`, col2: `${round(p.stone1.tSplash, 2)} s (Simultaneous!)` },
+          { symbol: "v_impact", label: "Splash Velocity", col1: `${round(p.stone1.vImpact, 2)} m/s`, col2: `${round(p.stone2.vImpact, 2)} m/s` }
+        ]
+      };
+    } else if (mode === "p44") {
+      const p = solveProblem44(options);
+      const opt = p.inputs;
+      return {
+        mode: "p44",
+        title: "Kinematics T-Chart: Two-Interval Motion (Boost vs. Free Fall)",
+        col1Header: "Interval 1: Powered Boost Stage",
+        col2Header: "Interval 2: Free Fall Coast & Plummet",
+        bridgeTitle: "State Hand-Off Continuity",
+        bridgeTag: "Continuity",
+        bridgeSummary: `At engine burnout (altitude y = ${round(p.phase1.altitudeEnd, 1)} m, clock time t = ${round(p.phase1.tEnd, 2)} s), the final velocity of Interval 1 (v = +${round(p.phase1.vEnd, 2)} m/s) becomes the initial velocity for Interval 2! Acceleration shifts from +${opt.aBoost.toFixed(1)} m/s² to -${opt.g.toFixed(1)} m/s².`,
+        rows: [
+          { symbol: "y_start", label: "Stage Start Altitude", col1: "0.0 m (Launchpad)", col2: `+${round(p.phase1.altitudeEnd, 1)} m (Burnout)` },
+          { symbol: "y_end", label: "Stage End Altitude", col1: `+${round(p.phase1.altitudeEnd, 1)} m (Burnout)`, col2: "0.0 m (Ground Impact)" },
+          { symbol: "v_start", label: "Initial Velocity", col1: `+${opt.v0.toFixed(1)} m/s`, col2: `+${round(p.phase1.vEnd, 2)} m/s` },
+          { symbol: "v_end", label: "Final Velocity", col1: `+${round(p.phase1.vEnd, 2)} m/s`, col2: `${round(p.phase2.vImpact, 2)} m/s` },
+          { symbol: "a", label: "Net Acceleration", col1: `+${opt.aBoost.toFixed(1)} m/s² (Thrust)`, col2: `-${opt.g.toFixed(1)} m/s² (Gravity)` },
+          { symbol: "Δt", label: "Stage Duration", col1: `${round(p.phase1.duration, 2)} s`, col2: `${round(p.phase2.tImpact - p.phase1.tEnd, 2)} s` },
+          { symbol: "t_clock", label: "Clock Time at End", col1: `${round(p.phase1.tEnd, 2)} s`, col2: `${round(p.phase2.tImpact, 2)} s` },
+          { symbol: "y_max", label: "Peak Altitude", col1: "— (Still accelerating)", col2: `+${round(p.phase2.altitudeApex, 2)} m (at t = ${round(p.phase2.tApex, 2)} s)` }
+        ]
+      };
+    } else {
+      const p = solveGenericSandbox(options);
+      const opt = p.inputs;
+      return {
+        mode: "sandbox",
+        title: "Kinematics T-Chart: 1D Free Fall Parameters",
+        col1Header: "Known / Given Parameters",
+        col2Header: "Calculated Kinematic Milestones",
+        bridgeTitle: "Universal Kinematic Laws",
+        bridgeTag: "Kinematics",
+        bridgeSummary: "Velocity evolves linearly: v(t) = v₀ + at. Position evolves quadratically: y(t) = y₀ + v₀t + ½at². At apex, vertical velocity momentarily reaches v = 0.",
+        rows: [
+          { symbol: "y₀", label: "Initial Height", col1: `${opt.y0.toFixed(1)} m`, col2: `Apex Height: ${isFinite(p.yApex) ? round(p.yApex, 2) + " m" : "—"}` },
+          { symbol: "v₀", label: "Initial Velocity", col1: `${opt.v0 >= 0 ? "+" : ""}${opt.v0.toFixed(1)} m/s`, col2: `Rise Time: ${isFinite(p.tApex) ? round(p.tApex, 2) + " s" : "—"}` },
+          { symbol: "a", label: "Acceleration", col1: `-${opt.g.toFixed(2)} m/s²`, col2: `Total Flight Time: ${isFinite(p.tImpact) ? round(p.tImpact, 2) + " s" : "—"}` },
+          { symbol: "Signs", label: "Orientation", col1: "+y Up, -y Down", col2: `Impact Velocity: ${isFinite(p.vImpact) ? round(p.vImpact, 2) + " m/s" : "—"}` }
+        ]
+      };
+    }
+  }
+
   // Public exports
   return {
     round,
@@ -790,6 +885,7 @@
     solveProblem44,
     solveGenericSandbox,
     generateStrobeDiagram,
-    getCornellTChartData
+    getCornellTChartData,
+    getScenarioTChart
   };
 }));

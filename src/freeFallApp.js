@@ -1878,7 +1878,7 @@
 
     stepsData.forEach((step, index) => {
       const card = document.createElement("div");
-      card.className = "step-card open"; // default open for student clarity
+      card.className = "step-card"; // default collapsed per pedagogical preference
 
       // Header
       const header = document.createElement("div");
@@ -1932,6 +1932,8 @@
       card.appendChild(body);
       stepsAccordion.appendChild(card);
     });
+
+    renderScenarioTChart();
   }
 
   btnExpandAllSteps.addEventListener("click", () => {
@@ -1941,6 +1943,86 @@
   btnCollapseAllSteps.addEventListener("click", () => {
     document.querySelectorAll(".step-card").forEach((c) => c.classList.remove("open"));
   });
+
+  // =========================================================================
+  // DYNAMIC SCENARIO KINEMATICS T-CHART BUILDER
+  // =========================================================================
+  function renderScenarioTChart() {
+    const container = document.getElementById("scenarioTChartContainer");
+    if (!container) return;
+
+    let opt = {};
+    if (state.mode === "p42") {
+      opt = { v0: state.p42.v0, wellDepth: state.p42.wellDepth, g: state.p42.g };
+    } else if (state.mode === "p43") {
+      opt = { cliffHeight: state.p43.cliffHeight, v01: state.p43.v01, tDelay: state.p43.tDelay, g: state.p43.g };
+    } else if (state.mode === "p44") {
+      opt = { v0: state.p44.v0, aBoost: state.p44.aBoost, burnoutAltitude: state.p44.burnoutAltitude, g: state.p44.g };
+    } else {
+      opt = { y0: state.sandbox.y0, v0: state.sandbox.v0, g: state.sandbox.g, groundY: state.sandbox.groundY };
+    }
+
+    const tData = Physics.getScenarioTChart(state.mode, opt);
+    container.innerHTML = `
+      <div class="scenario-tchart-bridge">
+        <div class="scenario-tchart-bridge-header">
+          <span class="scenario-tchart-bridge-title">🔗 ${tData.bridgeTitle}</span>
+          <span class="scenario-tchart-bridge-tag">${tData.bridgeTag}</span>
+        </div>
+        <div class="scenario-tchart-bridge-text">${tData.bridgeSummary}</div>
+      </div>
+
+      <div class="scenario-tchart-columns">
+        <!-- Column 1 -->
+        <div class="scenario-tchart-col">
+          <div class="scenario-tchart-col-head teal">
+            <span>🔹 ${tData.col1Header}</span>
+          </div>
+          <table class="scenario-tchart-table">
+            <tbody>
+              ${tData.rows.map(r => `
+                <tr>
+                  <td class="var-sym">${r.symbol}</td>
+                  <td class="var-lbl">${r.label}</td>
+                  <td class="var-val">${r.col1}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="scenario-tchart-col">
+          <div class="scenario-tchart-col-head amber">
+            <span>🔸 ${tData.col2Header}</span>
+          </div>
+          <table class="scenario-tchart-table">
+            <tbody>
+              ${tData.rows.map(r => `
+                <tr>
+                  <td class="var-sym">${r.symbol}</td>
+                  <td class="var-lbl">${r.label}</td>
+                  <td class="var-val">${r.col2}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  // Foundations Drawer Toggle
+  const btnToggleFoundations = document.getElementById("btnToggleFoundations");
+  const foundationsDrawer = document.getElementById("foundationsDrawer");
+  if (btnToggleFoundations && foundationsDrawer) {
+    btnToggleFoundations.addEventListener("click", () => {
+      const isHidden = foundationsDrawer.style.display === "none";
+      foundationsDrawer.style.display = isHidden ? "block" : "none";
+      btnToggleFoundations.setAttribute("aria-expanded", String(isHidden));
+      btnToggleFoundations.textContent = isHidden ? "✕ Hide Pillars" : "📖 Theoretical Pillars";
+    });
+  }
 
   // =========================================================================
   // CORNELL 1D KINEMATICS T-CHART BUILDER
@@ -2003,6 +2085,7 @@
     updateInquiryScenario(state.mode);
     renderScenarioConfigCard();
     renderDerivationsAccordion();
+    renderScenarioTChart();
     renderCornellTChart();
     updateLegendLabels();
     setTime(0);

@@ -210,3 +210,29 @@ test('Cornell T-Chart Structure & Strict Branding Compliance', () => {
   assert.ok(!jsonStr.includes('#59118e'), 'Purple is strictly forbidden');
   assert.ok(!jsonStr.includes('#ffc61e'), 'Gold is strictly forbidden');
 });
+
+test('Interactive Scenario Kinematics T-Chart Generation for all 4 modes', () => {
+  // Problem 42 (Well Toss)
+  const tc42 = Physics.getScenarioTChart("p42", { v0: 15, wellDepth: 20, g: 9.8 });
+  assert.equal(tc42.mode, "p42");
+  assert.ok(tc42.rows.length >= 8);
+  assert.ok(tc42.bridgeSummary.includes("Symmetry") || tc42.bridgeTitle.includes("Symmetry"));
+
+  // Problem 43 (Cliff Drop)
+  const tc43 = Physics.getScenarioTChart("p43", { cliffHeight: 50, v01: 2, tDelay: 1, g: 9.8 });
+  assert.equal(tc43.mode, "p43");
+  assert.ok(tc43.rows.length >= 8);
+  assert.ok(tc43.bridgeSummary.includes("Simultaneous") || tc43.bridgeTitle.includes("Simultaneous"));
+
+  // Problem 44 (Rocket)
+  const tc44 = Physics.getScenarioTChart("p44", { v0: 50, aBoost: 2, burnoutAltitude: 150, g: 9.8 });
+  assert.equal(tc44.mode, "p44");
+  assert.ok(tc44.rows.length >= 7);
+  assert.ok(tc44.bridgeSummary.includes("burnout") || tc44.bridgeTitle.includes("Continuity"));
+
+  // Sandbox
+  const tcSb = Physics.getScenarioTChart("sandbox", { y0: 100, v0: 0, g: 9.8 });
+  assert.equal(tcSb.mode, "sandbox");
+  assert.ok(tcSb.rows.length >= 4);
+});
+

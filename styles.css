@@ -1138,6 +1138,131 @@ body {
    Footer
    ========================================================================== */
 
+/* ==========================================================================
+   Scenario Kinematics Problem-Solving T-Chart
+   ========================================================================== */
+
+.scenario-tchart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.scenario-tchart-bridge {
+  background: var(--surface-alt);
+  border: 1px solid var(--primary-teal-light);
+  border-left: 4px solid var(--primary-teal);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+}
+
+.scenario-tchart-bridge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.scenario-tchart-bridge-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary-teal-dark);
+}
+
+.scenario-tchart-bridge-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--accent-amber-light);
+  color: var(--accent-amber-dark);
+}
+
+.scenario-tchart-bridge-text {
+  font-size: 0.82rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.scenario-tchart-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .scenario-tchart-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scenario-tchart-col {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.scenario-tchart-col-head {
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scenario-tchart-col-head.teal {
+  background: var(--primary-teal-light);
+  color: var(--primary-teal-dark);
+  border-top: 3px solid var(--primary-teal);
+}
+
+.scenario-tchart-col-head.amber {
+  background: var(--accent-amber-light);
+  color: var(--accent-amber-dark);
+  border-top: 3px solid var(--accent-amber);
+}
+
+.scenario-tchart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scenario-tchart-table tr:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.scenario-tchart-table tr:hover {
+  background: rgba(15, 126, 155, 0.03);
+}
+
+.scenario-tchart-table td {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.84rem;
+}
+
+.scenario-tchart-table td.var-sym {
+  width: 28%;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--primary-teal-dark);
+}
+
+.scenario-tchart-table td.var-lbl {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.scenario-tchart-table td.var-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+}
+
 .footer-bar {
   margin-top: 2rem;
   padding-top: 1.25rem;

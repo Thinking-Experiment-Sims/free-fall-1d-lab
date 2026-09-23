@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <!-- KaTeX for pristine vector mathematical typesetting -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Blueprint grid matching The Thinking Experiment Hub -->
@@ -313,19 +313,35 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- BOTTOM SECTION 2: Cornell 1D Kinematics T-Chart                      -->
+    <!-- BOTTOM SECTION 2: Interactive Kinematics Problem-Solving T-Chart     -->
     <!-- =================================================================== -->
-    <section class="studio-card" aria-label="Cornell 1D Kinematics T-Chart">
+    <section class="studio-card" aria-label="Interactive Kinematics Problem-Solving T-Chart">
       <div class="card-header">
         <h2 class="card-title">
           <span>📋</span>
-          <span>Cornell 1D Kinematics T-Chart: Core Foundational Pillars</span>
+          <span id="tchartCardTitle">Interactive Kinematics T-Chart: Problem-Solving Setup</span>
         </h2>
-        <span class="card-badge">Kinematic Principles Framework</span>
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-sm btn-secondary" id="btnToggleFoundations" aria-expanded="false" title="View Core Kinematic Principles">
+            📖 Theoretical Pillars
+          </button>
+          <span class="card-badge" id="tchartCardBadge">Two-Column Kinematic Analysis</span>
+        </div>
       </div>
 
-      <div class="tchart-container" id="cornellTChartContainer">
-        <!-- Rendered dynamically by freeFallApp.js from getCornellTChartData() -->
+      <!-- Dynamic Scenario T-Chart Table -->
+      <div class="scenario-tchart-wrapper" id="scenarioTChartContainer">
+        <!-- Rendered dynamically by freeFallApp.js from getScenarioTChart() -->
+      </div>
+
+      <!-- Optional Collapsible Theoretical Pillars Reference -->
+      <div class="tchart-foundations-drawer" id="foundationsDrawer" style="display: none; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-light);">
+        <div style="font-weight: 700; color: var(--primary-teal-dark); margin-bottom: 0.65rem; font-size: 0.92rem;">
+          🏛️ Foundational Kinematic Principles &amp; Universal Laws:
+        </div>
+        <div class="tchart-container" id="cornellTChartContainer">
+          <!-- Rendered dynamically by freeFallApp.js from getCornellTChartData() -->
+        </div>
       </div>
     </section>
 
